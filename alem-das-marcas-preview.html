@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#35134f" />
+<meta name="description" content="Projeto educativo sobre violência contra a mulher: identificação de sinais, tipos de violência e caminhos para buscar ajuda." />
+<title>Além das Marcas — Violência contra a Mulher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg-base: #faf8fc;
+  --bg-lilac: #f4edfa;
+  --purple-1: #7c3aed;
+  --purple-2: #8b5cf6;
+  --purple-3: #a855f7;
+  --purple-4: #c084fc;
+  --purple-deep: #35134f;
+  --purple-deep-2: #24102f;
+  --pink-1: #e9d5ff;
+  --pink-2: #f0ddf7;
+  --pink-3: #f5e9ff;
+  --ink: #17151a;
+  --ink-soft: #29242d;
+  --muted: #6c6373;
+  --wine: #7a2955;
+  --line: rgba(53, 19, 79, .09);
+  --glass-bg: rgba(255, 255, 255, .5);
+  --glass-bg-strong: rgba(255, 255, 255, .68);
+  --glass-border: rgba(255, 255, 255, .6);
+  --glass-shadow: 0 20px 60px rgba(88, 28, 135, .10);
+  --grad-purple: linear-gradient(135deg, var(--purple-1), var(--purple-3));
+  --grad-text: linear-gradient(120deg, var(--purple-1), var(--purple-3) 55%, var(--pink-1));
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: "DM Sans", system-ui, sans-serif; color: var(--ink-soft); background: var(--bg-base); -webkit-font-smoothing: antialiased; }
+button, a { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+svg { display: block; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.site-shell { position: relative; overflow-x: hidden; }
+.container { width: min(1180px, calc(100% - 44px)); margin: 0 auto; position: relative; z-index: 2; }
+.section { position: relative; padding: 128px 0; overflow: hidden; }
+h1, h2 { font-family: "Playfair Display", Georgia, serif; letter-spacing: -0.03em; color: var(--ink); margin: 0; }
+h2 { font-size: clamp(2.5rem, 4.4vw, 4.2rem); line-height: 1.02; }
+h3 { margin: 0; }
+.section-kicker { color: var(--purple-1); font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; display: inline-block; margin-bottom: 18px; }
+.section-kicker.light { color: var(--pink-1); }
+.section-heading { display: flex; justify-content: space-between; gap: 60px; align-items: flex-end; margin-bottom: 52px; position: relative; z-index: 2; }
+.section-heading > p { max-width: 420px; margin: 0; font-size: 1rem; line-height: 1.8; color: var(--muted); }
+:focus-visible { outline: 2.5px solid var(--purple-2); outline-offset: 3px; border-radius: 4px; }
+
+/* GRID LINES */
+.grid-lines { position: absolute; inset: 0; pointer-events: none; z-index: 1; background-image: linear-gradient(to right, rgba(53, 20, 79, .055) 1px, transparent 1px); background-size: 74px 100%; -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 8%, black 92%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, black 8%, black 92%, transparent 100%); }
+.grid-lines-light { background-image: linear-gradient(to right, rgba(255, 255, 255, .07) 1px, transparent 1px); }
+
+/* BACKGROUND GLOW */
+.bg-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.bg-glow-hero { background: radial-gradient(circle at 14% 18%, rgba(168, 85, 247, .24), transparent 38%), radial-gradient(circle at 82% 12%, rgba(192, 132, 252, .22), transparent 34%), radial-gradient(circle at 70% 78%, rgba(236, 197, 255, .30), transparent 40%), radial-gradient(circle at 8% 85%, rgba(124, 58, 237, .10), transparent 36%), var(--bg-base); animation: driftGlow 26s ease-in-out infinite alternate; }
+.bg-glow-types { background: radial-gradient(circle at 85% 8%, rgba(168, 85, 247, .16), transparent 36%), radial-gradient(circle at 6% 60%, rgba(240, 221, 247, .55), transparent 42%), radial-gradient(circle at 60% 95%, rgba(139, 92, 246, .10), transparent 38%), var(--bg-base); }
+.bg-glow-deep { background: radial-gradient(circle at 20% 15%, rgba(168, 85, 247, .30), transparent 40%), radial-gradient(circle at 88% 30%, rgba(192, 132, 252, .18), transparent 36%), radial-gradient(circle at 60% 100%, rgba(236, 72, 153, .12), transparent 42%), linear-gradient(160deg, var(--purple-deep) 0%, var(--purple-deep-2) 100%); animation: driftGlow 30s ease-in-out infinite alternate; }
+.bg-glow-help { background: radial-gradient(circle at 90% 10%, rgba(168, 85, 247, .18), transparent 36%), radial-gradient(circle at 10% 90%, rgba(233, 213, 255, .55), transparent 42%), var(--bg-lilac); }
+@keyframes driftGlow { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-1.5%, 1%, 0) scale(1.04); } }
+
+/* GLASS SHAPES */
+.glass-shape { position: absolute; border-radius: 32px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(168, 85, 247, .12); border: 1px solid rgba(255, 255, 255, .45); animation: floatShape 9s ease-in-out infinite; }
+@keyframes floatShape { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-14px) rotate(var(--r, 0deg)); } }
+
+/* MOSAIC WAVE */
+.mosaic-wave { display: grid; gap: 6px; pointer-events: none; }
+.mosaic-tile { aspect-ratio: 1; border-radius: 9px; transition: opacity .4s ease; animation: tilePulse 7s ease-in-out infinite; }
+.mosaic-light .mosaic-tile { background: linear-gradient(160deg, rgba(255,255,255,.6), rgba(139,92,246,.9)); box-shadow: inset 0 1px 0 rgba(255,255,255,.5); }
+.mosaic-deep .mosaic-tile { background: linear-gradient(160deg, rgba(255,255,255,.24), rgba(192,132,252,.55)); box-shadow: inset 0 1px 0 rgba(255,255,255,.16); }
+@keyframes tilePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(.97); } }
+
+/* NAVBAR */
+.nav-wrap { position: fixed; inset: 0 0 auto; z-index: 100; background: rgba(250, 248, 252, .72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(124, 58, 237, .10); }
+.nav { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.brand { border: 0; background: transparent; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; letter-spacing: -.01em; padding: 0; font-size: .96rem; }
+.brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 11px; background: var(--grad-purple); color: #fff; }
+.nav-links { display: flex; align-items: center; gap: 30px; }
+.nav-links button, .footer-links button { border: 0; background: none; color: var(--muted); font-weight: 600; font-size: .84rem; letter-spacing: .02em; padding: 8px 0; transition: color .2s ease; }
+.nav-links button:hover, .footer-links button:hover { color: var(--purple-1); }
+.nav-help { background: var(--grad-purple) !important; color: #fff !important; padding: 10px 18px !important; border-radius: 999px; font-size: .76rem !important; letter-spacing: .07em !important; text-transform: uppercase; transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 10px 26px rgba(124, 58, 237, .28); }
+.nav-help:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(124, 58, 237, .34); }
+.menu-button { display: none; border: 0; background: transparent; color: var(--purple-1); }
+
+/* HERO */
+.hero { min-height: 96vh; display: grid; align-items: center; padding-top: 150px; padding-bottom: 70px; }
+.hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 40px; }
+.eyebrow-stack { display: flex; flex-direction: column; gap: 5px; margin-bottom: 30px; }
+.eyebrow-line { font-size: .74rem; font-weight: 700; letter-spacing: .22em; color: var(--purple-1); text-transform: uppercase; }
+.eyebrow-sub { color: var(--muted); font-weight: 600; letter-spacing: .18em; font-size: .68rem; }
+.hero-title { max-width: 780px; font-size: clamp(2.9rem, 6vw, 5.7rem); line-height: .98; font-weight: 600; text-shadow: 0 14px 40px rgba(53, 19, 79, .10); }
+.hero-break { display: none; }
+@media (min-width: 900px) { .hero-break { display: inline; } }
+.hero-title em { font-style: italic; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-sparkle { color: var(--purple-3); display: inline-block; position: relative; top: -0.7em; margin-left: 2px; transform: rotate(-8deg); }
+.hero-lead { max-width: 540px; font-size: 1.08rem; line-height: 1.85; color: var(--muted); margin: 30px 0 0; }
+.hero-actions { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; margin: 36px 0 26px; }
+.primary-button { border: 0; background: var(--grad-purple); color: #fff; padding: 16px 24px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; box-shadow: 0 16px 36px rgba(124, 58, 237, .28); transition: transform .25s ease, box-shadow .25s ease; }
+.primary-button:hover { transform: translateY(-3px); box-shadow: 0 20px 42px rgba(124, 58, 237, .34); }
+.text-button { border: 0; background: transparent; color: var(--purple-deep); font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; padding: 10px 2px; border-bottom: 1px solid rgba(53, 19, 79, .25); transition: border-color .2s ease, color .2s ease; }
+.text-button:hover { color: var(--purple-1); border-color: var(--purple-1); }
+.hero-note { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .87rem; }
+.hero-note svg { color: var(--purple-2); flex: 0 0 auto; }
+.hero-art { position: relative; min-height: 540px; }
+.hero-mosaic { position: absolute; bottom: -6%; right: -4%; width: 260px; z-index: -1; -webkit-mask-image: linear-gradient(to top, black 55%, transparent 96%); mask-image: linear-gradient(to top, black 55%, transparent 96%); }
+.shape-1 { width: 230px; height: 280px; top: 4%; right: 8%; background: rgba(168,85,247,.14); animation-duration: 10s; --r: -4deg; }
+.shape-2 { width: 160px; height: 160px; top: 38%; right: 46%; border-radius: 50%; background: rgba(192,132,252,.16); animation-duration: 8s; animation-delay: .6s; }
+.shape-3 { width: 210px; height: 150px; bottom: 6%; right: 2%; background: rgba(233,213,255,.5); animation-duration: 11s; animation-delay: .3s; --r: 3deg; }
+.shape-4 { width: 120px; height: 120px; bottom: 26%; left: 2%; background: rgba(124,58,237,.10); animation-duration: 9s; animation-delay: .9s; border-radius: 40%; }
+.shape-5 { width: 300px; height: 300px; top: 30%; left: 20%; border-radius: 50%; background: rgba(240,221,247,.45); filter: blur(6px); animation-duration: 13s; z-index: -1; }
+.micro-tag { position: absolute; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.65); border-radius: 999px; padding: 8px 14px; font-size: .64rem; font-weight: 700; letter-spacing: .1em; color: var(--purple-deep); box-shadow: 0 10px 26px rgba(88,28,135,.10); }
+.micro-num { color: var(--purple-2); }
+.tag-1 { top: 12%; right: 30%; }
+.tag-2 { top: 52%; left: 4%; }
+.tag-3 { bottom: 14%; right: 20%; }
+.micro-quote { position: absolute; left: 6%; top: 4%; max-width: 150px; background: rgba(255,255,255,.5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.6); border-radius: 20px; padding: 16px 18px; font-family: "Playfair Display", serif; font-style: italic; font-size: .82rem; line-height: 1.35; color: var(--purple-deep); box-shadow: 0 14px 34px rgba(88,28,135,.10); }
+
+/* EDITORIAL INTRO */
+.intro-section { background: var(--bg-lilac); }
+.ghost-number { position: absolute; top: -4%; left: -1%; font-family: "Playfair Display", serif; font-weight: 700; font-size: clamp(9rem, 24vw, 19rem); color: var(--purple-2); opacity: .07; z-index: 0; line-height: 1; pointer-events: none; user-select: none; }
+.intro-grid { display: grid; grid-template-columns: .55fr 1.45fr; gap: 60px; }
+.intro-grid p { font-size: 1.08rem; line-height: 1.85; color: var(--muted); max-width: 720px; margin: 26px 0 0; }
+.statement { margin-top: 38px; display: flex; align-items: flex-start; gap: 18px; max-width: 700px; color: var(--purple-deep); font-size: 1.3rem; line-height: 1.5; font-family: "Playfair Display", serif; font-weight: 600; }
+.statement-line { width: 3px; min-height: 58px; background: var(--grad-purple); border-radius: 4px; flex: 0 0 auto; margin-top: 4px; }
+
+/* VIOLENCE TYPES */
+.types-section { background: var(--bg-base); }
+.types-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; z-index: 2; }
+.type-card { position: relative; overflow: hidden; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 26px; padding: 32px 28px; box-shadow: 0 14px 40px rgba(88, 28, 135, .06); transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease, border-color .35s ease, background .35s ease; }
+.type-card:hover, .type-card.is-open { transform: translateY(-6px) scale(1.012); box-shadow: var(--glass-shadow); border-color: rgba(168, 85, 247, .35); background: rgba(255, 255, 255, .62); }
+.type-ghost-number { position: absolute; top: -10px; right: 6px; font-family: "Playfair Display", serif; font-size: 6rem; font-weight: 700; color: var(--purple-3); opacity: .08; line-height: 1; pointer-events: none; transition: transform .4s ease, opacity .4s ease; }
+.type-card:hover .type-ghost-number { transform: translate(-4px, 4px); opacity: .14; }
+.type-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+.icon-box { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--grad-purple); color: #fff; }
+.type-number { color: var(--muted); font-weight: 700; font-size: .76rem; letter-spacing: .06em; }
+.type-card h3 { font-family: "Playfair Display", serif; font-size: 1.5rem; margin: 24px 0 10px; color: var(--purple-deep); position: relative; z-index: 1; }
+.type-card p { color: var(--muted); line-height: 1.65; min-height: 76px; position: relative; z-index: 1; }
+.learn-more { border: 0; background: none; padding: 14px 0 0; color: var(--purple-1); display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; position: relative; z-index: 1; transition: gap .2s ease; }
+.learn-more:hover { gap: 11px; }
+.examples { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; position: relative; z-index: 1; }
+.examples.expanded { grid-template-rows: 1fr; }
+.examples > ul { overflow: hidden; margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.65; font-size: .92rem; }
+.examples.expanded > ul { margin-top: 18px; }
+.examples li { margin-bottom: 7px; }
+.examples li::marker { color: var(--purple-3); }
+.legal-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 30px; padding: 20px 22px; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 18px; color: var(--muted); position: relative; z-index: 2; }
+.legal-note svg { color: var(--purple-1); flex: 0 0 auto; margin-top: 2px; }
+.legal-note p { line-height: 1.65; font-size: .89rem; }
+
+/* SIGNS */
+.signs-section { color: #fff; }
+.signs-container { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+.signs-head { position: sticky; top: 130px; }
+.signs-title { color: #fff; font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: .98; margin: 4px 0 22px; }
+.signs-head > p { color: rgba(255,255,255,.65); line-height: 1.75; max-width: 420px; font-size: .98rem; }
+.signs-list { display: flex; flex-direction: column; gap: 10px; }
+.sign-item { text-align: left; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); backdrop-filter: blur(10px); color: #fff; padding: 20px 22px; border-radius: 16px; display: flex; align-items: center; gap: 16px; transition: background .25s ease, border-color .25s ease, transform .25s ease; width: 100%; }
+.sign-item:hover { background: rgba(255,255,255,.09); border-color: rgba(192,132,252,.4); transform: translateX(3px); }
+.sign-item.selected { background: rgba(168,85,247,.16); border-color: var(--purple-3); }
+.sign-number { color: var(--purple-4); font-weight: 700; font-size: .74rem; flex: 0 0 auto; }
+.sign-text { flex: 1; line-height: 1.5; font-size: .98rem; }
+.sign-check { width: 24px; height: 24px; border: 1px solid rgba(255,255,255,.32); border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; color: #fff; transition: .25s ease; }
+.sign-item.selected .sign-check { background: var(--grad-purple); border-color: transparent; box-shadow: 0 0 0 4px rgba(168,85,247,.18); }
+.recognition-message { margin-top: 26px; padding: 22px; border-radius: 18px; background: rgba(255,255,255,.94); color: var(--purple-deep); display: flex; gap: 14px; align-items: flex-start; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+.recognition-message svg { color: var(--purple-1); flex: 0 0 auto; margin-top: 2px; }
+.recognition-message.visible { opacity: 1; transform: none; pointer-events: auto; }
+.recognition-message p { margin: 6px 0 0; color: var(--muted); line-height: 1.6; font-size: .92rem; }
+
+/* MYTHS */
+.myths-section { background: var(--bg-base); }
+.myths-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; position: relative; z-index: 2; }
+.myth-card { min-height: 290px; position: relative; overflow: hidden; text-align: left; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 24px; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; display: flex; flex-direction: column; }
+.myth-card:hover, .myth-card.open { transform: translateY(-5px); box-shadow: var(--glass-shadow); border-color: rgba(168,85,247,.35); }
+.myth-ghost { position: absolute; top: -6px; right: 10px; font-family: "Playfair Display", serif; font-size: 4.6rem; font-weight: 700; color: var(--purple-3); opacity: .09; line-height: 1; }
+.myth-label { color: var(--muted); font-size: .64rem; font-weight: 700; letter-spacing: .12em; position: relative; z-index: 1; }
+.myth-card p { color: var(--purple-deep); font-family: "Playfair Display", serif; font-style: italic; font-size: 1.16rem; line-height: 1.36; margin-top: 30px; position: relative; z-index: 1; flex: 1; }
+.myth-reveal { color: var(--purple-1); font-weight: 700; font-size: .72rem; letter-spacing: .08em; position: relative; z-index: 1; }
+.answer-pill { align-self: flex-start; padding: 5px 12px; border-radius: 999px; font-weight: 800; font-size: .68rem; letter-spacing: .06em; margin-top: 6px; position: relative; z-index: 1; display: none; }
+.answer-pill.mito { background: rgba(122, 41, 85, .12); color: var(--wine); }
+.answer-pill.verdade { background: rgba(124, 58, 237, .14); color: var(--purple-1); }
+.myth-card.open .answer-pill { display: inline-block; }
+.answer-explain { display: none; margin-top: 12px; color: var(--muted); font-size: .84rem; line-height: 1.55; position: relative; z-index: 1; }
+.myth-card.open .answer-explain { display: block; }
+.myth-card.open .myth-reveal { display: none; }
+
+/* QUOTES */
+.quotes-section { background: linear-gradient(180deg, var(--pink-2), var(--bg-base)); padding: 90px 0; position: relative; }
+.quotes-grid { display: flex; flex-direction: column; }
+.quote { display: flex; align-items: baseline; gap: 28px; padding: 40px 0; border-top: 1px solid rgba(53,19,79,.10); position: relative; z-index: 2; }
+.quote:last-child { border-bottom: 1px solid rgba(53,19,79,.10); }
+.quote-num { font-size: .74rem; font-weight: 700; color: var(--purple-3); flex: 0 0 auto; }
+.quote strong { font-family: "Playfair Display", serif; font-size: clamp(1.5rem, 3.4vw, 2.6rem); line-height: 1.18; font-weight: 600; }
+.quote-solid strong { color: var(--ink); }
+.quote-italic strong { color: var(--purple-deep); font-style: italic; }
+.quote-gradient strong { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.quote-outline strong { color: transparent; -webkit-text-stroke: 1.4px var(--purple-2); }
+
+/* HELP */
+.help-section { background: var(--bg-lilac); }
+.help-shape-1 { width: 320px; height: 320px; border-radius: 50%; top: -10%; right: -6%; background: rgba(192,132,252,.14); filter: blur(4px); z-index: 0; }
+.help-shape-2 { width: 200px; height: 260px; bottom: -8%; left: -4%; background: rgba(168,85,247,.10); z-index: 0; }
+.help-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 70px; align-items: start; position: relative; z-index: 2; }
+.help-grid p { font-size: 1.05rem; line-height: 1.85; color: var(--muted); max-width: 480px; margin: 22px 0 0; }
+.safety-box { margin-top: 30px; padding: 20px 22px; border-radius: 18px; background: rgba(255,255,255,.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-left: 3px solid var(--purple-2); color: var(--purple-deep); display: flex; gap: 12px; line-height: 1.55; font-size: .95rem; }
+.safety-box svg { flex: 0 0 auto; color: var(--purple-1); margin-top: 1px; }
+.help-cards { display: grid; gap: 16px; }
+.help-card { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: start; padding: 26px; background: var(--glass-bg-strong); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 22px; box-shadow: 0 14px 40px rgba(88,28,135,.06); transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.help-card:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow); border-color: rgba(168,85,247,.35); }
+.help-icon { width: 44px; height: 44px; border-radius: 13px; background: var(--grad-purple); color: #fff; display: grid; place-items: center; }
+.help-overline { font-size: .64rem; font-weight: 800; letter-spacing: .1em; color: var(--purple-1); }
+.help-card h3 { margin: 6px 0; font-family: "Playfair Display", serif; font-size: 1.4rem; color: var(--purple-deep); }
+.help-card p { font-size: .9rem; line-height: 1.6; margin: 0; max-width: none; color: var(--muted); }
+.help-external { color: var(--muted); margin-top: 4px; }
+
+/* FOOTER */
+.footer { background: var(--purple-deep-2); color: var(--pink-2); padding: 90px 0 30px; position: relative; overflow: hidden; }
+.footer-mosaic { position: absolute; top: -8%; right: -3%; width: 320px; z-index: 0; opacity: .85; }
+.footer-top { padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,.08); position: relative; z-index: 2; }
+.footer-statement { color: #fff; font-size: clamp(2.3rem, 5vw, 4.4rem); line-height: 1.04; }
+.footer-grid { display: grid; grid-template-columns: 1fr .6fr 1fr; gap: 50px; padding-top: 55px; position: relative; z-index: 2; }
+.footer-brand { color: #fff; }
+.footer-grid > div > p { color: rgba(240,221,247,.6); margin-top: 8px; font-size: .88rem; }
+.footer-links { display: flex; flex-direction: column; gap: 6px; }
+.footer-links button { text-align: left; color: rgba(240,221,247,.75); }
+.sources { display: flex; flex-direction: column; gap: 10px; font-size: .83rem; }
+.sources strong { color: #fff; margin-bottom: 4px; }
+.sources a { color: rgba(240,221,247,.75); text-decoration: underline; text-underline-offset: 3px; transition: color .2s ease; }
+.sources a:hover { color: var(--purple-4); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 50px; padding-top: 22px; display: flex; justify-content: space-between; gap: 20px; color: rgba(240,221,247,.5); font-size: .74rem; position: relative; z-index: 2; }
+
+/* TO TOP */
+.to-top { position: fixed; right: 24px; bottom: 24px; z-index: 90; width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--grad-purple); color: #fff; display: grid; place-items: center; box-shadow: 0 14px 32px rgba(124,58,237,.30); transition: transform .2s ease, box-shadow .2s ease, opacity .25s ease, visibility .25s ease; opacity: 0; visibility: hidden; }
+.to-top.visible { opacity: 1; visibility: visible; }
+.to-top:hover { transform: translateY(-3px); box-shadow: 0 18px 38px rgba(124,58,237,.36); }
+
+/* REVEAL */
+.reveal { animation: rise .7s both; }
+.delay-1 { animation-delay: .08s; }
+.delay-2 { animation-delay: .16s; }
+.delay-3 { animation-delay: .24s; }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+
+/* RESPONSIVE */
+@media (max-width: 1080px) {
+  .signs-container { grid-template-columns: 1fr; gap: 40px; }
+  .signs-head { position: static; }
+  .myths-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 980px) {
+  .hero-grid, .help-grid, .intro-grid { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding: 150px 0 70px; }
+  .hero-art { min-height: 420px; margin-top: 20px; }
+  .types-grid { grid-template-columns: 1fr 1fr; }
+  .myths-grid, .quotes-grid { grid-template-columns: repeat(2, 1fr); }
+  .myths-grid { display: grid; }
+  .myths-grid .myth-card:last-child { grid-column: 1/-1; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .ghost-number { font-size: 13rem; }
+}
+@media (max-width: 720px) {
+  .container { width: min(calc(100% - 32px), 1160px); }
+  .section { padding: 84px 0; }
+  .nav { height: 68px; }
+  .menu-button { display: block; }
+  .nav-links { position: absolute; left: 14px; right: 14px; top: 76px; display: none; flex-direction: column; align-items: stretch; gap: 4px; padding: 14px; background: rgba(250,248,252,.98); backdrop-filter: blur(18px); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--glass-shadow); }
+  .nav-links.open { display: flex; }
+  .nav-links button { text-align: left; padding: 13px 10px; }
+  .nav-help { text-align: center !important; }
+  .hero { padding-top: 130px; }
+  .hero-title { font-size: clamp(2.6rem, 12vw, 3.6rem); }
+  .hero-art { min-height: 340px; transform: scale(.92); margin-top: -10px; }
+  .hero-mosaic { width: 170px; }
+  .micro-quote { max-width: 130px; font-size: .74rem; left: 0; }
+  .ghost-number { font-size: 8rem; opacity: .06; }
+  .intro-grid p { margin-top: 18px; }
+  .section-heading { display: block; }
+  .section-heading > p { margin-top: 18px; max-width: none; }
+  .types-grid, .myths-grid, .quotes-grid { grid-template-columns: 1fr; }
+  .myths-grid .myth-card:last-child { grid-column: auto; }
+  .myth-card { min-height: 240px; }
+  .signs-title { font-size: clamp(2.1rem, 10vw, 3rem); }
+  .sign-item { padding: 16px 18px; }
+  .quote { flex-direction: column; gap: 8px; padding: 30px 0; }
+  .footer-grid, .footer-bottom { grid-template-columns: 1fr; display: grid; }
+  .footer-bottom { gap: 10px; }
+  .footer-statement { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .footer-mosaic { width: 190px; opacity: .55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Navegação principal">
+      <button class="brand" data-scroll="inicio" aria-label="Voltar ao início">
+        <span class="brand-mark"><i data-lucide="sparkles" style="width:16px;height:16px"></i></span>
+        <span>Além das Marcas</span>
+      </button>
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="main-menu">
+        <i data-lucide="menu" id="menuIcon"></i>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <div id="main-menu" class="nav-links">
+        <button data-scroll="sobre">Sobre</button>
+        <button data-scroll="tipos">Tipos</button>
+        <button data-scroll="sinais">Sinais</button>
+        <button data-scroll="mitos">Mitos &amp; verdades</button>
+        <button class="nav-help" data-scroll="ajuda">Buscar ajuda</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero section">
+      <div class="bg-glow bg-glow-hero" aria-hidden="true"></div>
+      <div class="grid-lines" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow-stack">
+            <span class="eyebrow-line">ALÉM DAS MARCAS</span>
+            <span class="eyebrow-line eyebrow-sub">PROJETO DE CONSCIENTIZAÇÃO</span>
+          </div>
+          <h1 class="hero-title">
+            Violência<i data-lucide="sparkles" class="hero-sparkle" style="width:26px;height:26px"></i> <br class="hero-break" />
+            não é apenas <br class="hero-break" />
+            aquilo que deixa <br class="hero-break" />
+            <em>marcas</em> no corpo.
+          </h1>
+          <p class="hero-lead">Conhecer os diferentes tipos de violência é um passo importante para reconhecer situações abusivas, buscar ajuda e proteger a si mesma e a outras mulheres.</p>
+          <div class="hero-actions">
+            <button class="primary-button" data-scroll="tipos">CONHECER OS TIPOS <i data-lucide="arrow-right" style="width:15px;height:15px"></i></button>
+            <button class="text-button" data-scroll="sinais">RECONHECER OS SINAIS</button>
+          </div>
+          <div class="hero-note"><i data-lucide="lock-keyhole" style="width:15px;height:15px"></i> Informação, acolhimento e respeito — sem julgamentos.</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="mosaic-wave mosaic-light hero-mosaic" id="heroMosaic"></div>
+          <div class="glass-shape shape-1"></div>
+          <div class="glass-shape shape-2"></div>
+          <div class="glass-shape shape-3"></div>
+          <div class="glass-shape shape-4"></div>
+          <div class="glass-shape shape-5"></div>
+          <div class="micro-tag tag-1"><span class="micro-num">01</span><span>RECONHECER</span></div>
+          <div class="micro-tag tag-2"><span class="micro-num">02</span><span>INFORMAR</span></div>
+          <div class="micro-tag tag-3"><span class="micro-num">03</span><span>PROTEGER</span></div>
+          <div class="micro-quote">INFORMAÇÃO<br />TAMBÉM É<br />UMA FORMA<br />DE PROTEÇÃO.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section id="sobre" class="section intro-section">
+      <span class="ghost-number" aria-hidden="true">01</span>
+      <div class="container intro-grid">
+        <div class="section-kicker">01 — ENTENDER É UM COMEÇO</div>
+        <div>
+          <h2>Nem toda violência<br />é visível.</h2>
+          <p>A violência contra a mulher pode acontecer de diferentes formas e algumas delas são difíceis de perceber. Controle, humilhação, ameaças, coerção sexual e destruição de bens também podem fazer parte de situações abusivas.</p>
+          <div class="statement">
+            <span class="statement-line"></span>
+            <strong>Toda mulher merece viver com liberdade, segurança, respeito e dignidade.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPES -->
+    <section id="tipos" class="section types-section">
+      <div class="bg-glow bg-glow-types" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <div class="section-kicker">02 — RECONHEÇA</div>
+            <h2>06 formas<br />de violência</h2>
+          </div>
+          <p>A violência doméstica e familiar pode assumir formas diferentes. Conhecê-las ajuda a nomear situações que muitas vezes são normalizadas.</p>
+        </div>
+        <div class="types-grid" id="typesGrid"></div>
+        <div class="legal-note">
+          <i data-lucide="book-open" style="width:18px;height:18px"></i>
+          <p>No Brasil, a Lei Maria da Penha reconhece as violências física, psicológica, sexual, patrimonial, moral e, desde 2026, também a violência vicária. Os exemplos desta página são educativos e não substituem análise profissional ou jurídica.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNS -->
+    <section id="sinais" class="section signs-section">
+      <div class="bg-glow bg-glow-deep" aria-hidden="true"></div>
+      <div class="grid-lines grid-lines-light" aria-hidden="true"></div>
+      <div class="container signs-container">
+        <div class="signs-head">
+          <div class="section-kicker light">03 — OLHE COM ATENÇÃO</div>
+          <h2 class="signs-title">Você<br />reconhece<br />esses sinais?</h2>
+          <p>Leia cada situação com calma. Marcar uma ou mais não é um diagnóstico psicológico ou jurídico. É apenas um convite à reflexão.</p>
+        </div>
+        <div class="signs-panel">
+          <div class="signs-list" id="signsList"></div>
+          <div class="recognition-message" id="recognitionMessage">
+            <i data-lucide="heart-handshake" style="width:20px;height:20px"></i>
+            <div>
+              <strong>Se você se identificou com alguma dessas situações, você não está sozinha.</strong>
+              <p>Buscar informação, conversar com alguém de confiança e conhecer os serviços de apoio pode ser um passo importante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MYTHS -->
+    <section id="mitos" class="section myths-section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">04 — DESFAÇA IDEIAS</div>
+            <h2>Mitos &amp; verdades</h2>
+          </div>
+          <p>Algumas ideias podem normalizar comportamentos abusivos. Informação ajuda a enxergá-los de outra maneira.</p>
+        </div>
+        <div class="myths-grid" id="mythsGrid"></div>
+      </div>
+    </section>
+
+    <!-- QUOTES -->
+    <section class="quotes-section" aria-label="Frases de conscientização">
+      <div class="grid-lines" aria-hidden="true"></div>
+      <div class="container quotes-grid" id="quotesGrid"></div>
+    </section>
+
+    <!-- HELP -->
+    <section id="ajuda" class="section help-section">
+      <div class="bg-glow bg-glow-help" aria-hidden="true"></div>
+      <div class="glass-shape help-shape-1"></div>
+      <div class="glass-shape help-shape-2"></div>
+      <div class="container help-grid">
+        <div class="reveal">
+          <div class="section-kicker">05 — CAMINHOS DE APOIO</div>
+          <h2>Você<br />não está<br />sozinha.</h2>
+          <p>Uma pessoa que esteja passando por uma situação de violência pode procurar pessoas de confiança e serviços oficiais de apoio e proteção. Escolha um caminho que seja seguro para você.</p>
+          <div class="safety-box">
+            <i data-lucide="shield-check" style="width:19px;height:19px"></i>
+            <strong>Se você estiver em perigo imediato, procure um serviço de emergência ou um local seguro.</strong>
+          </div>
+        </div>
+        <div class="help-cards">
+          <a class="help-card" href="https://www.gov.br/pt-br/servicos/denunciar-e-buscar-ajuda-a-vitimas-de-violencia-contra-mulheres" target="_blank" rel="noreferrer">
+            <div class="help-icon"><i data-lucide="phone" style="width:20px;height:20px"></i></div>
+            <div>
+              <span class="help-overline">CENTRAL DE ATENDIMENTO À MULHER</span>
+              <h3>Ligue 180</h3>
+              <p>Serviço oficial do Governo Federal para informações, acolhimento, orientação e encaminhamento de denúncias. Atendimento 24 horas.</p>
+            </div>
+            <i data-lucide="external-link" class="help-external" style="width:16px;height:16px"></i>
+          </a>
+          <a class="help-card" href="https://www.gov.br/mulheres/pt-br/central-de-conteudos/campanhas/2026/carnaval" target="_blank" rel="noreferrer">
+            <div class="help-icon"><i data-lucide="landmark" style="width:20px;height:20px"></i></div>
+            <div>
+              <span class="help-overline">INFORMAÇÃO OFICIAL</span>
+              <h3>Serviços e direitos</h3>
+              <p>Consulte informações atualizadas do Governo Federal sobre direitos, proteção e enfrentamento à violência contra a mulher.</p>
+            </div>
+            <i data-lucide="external-link" class="help-external" style="width:16px;height:16px"></i>
+          </a>
+          <a class="help-card" href="https://wa.me/556196100180" target="_blank" rel="noreferrer">
+            <div class="help-icon"><i data-lucide="message-circle" style="width:20px;height:20px"></i></div>
+            <div>
+              <span class="help-overline">CENTRAL DE ATENDIMENTO ÀS MULHERES</span>
+              <h3>Atendimento via WhatsApp</h3>
+              <p>Canal direto de atendimento às mulheres pelo WhatsApp.</p>
+            </div>
+            <i data-lucide="external-link" class="help-external" style="width:16px;height:16px"></i>
+          </a>
+          <a class="help-card" href="https://share.google/a816fj0omszDAe4vb" target="_blank" rel="noreferrer">
+            <div class="help-icon"><i data-lucide="map-pin" style="width:20px;height:20px"></i></div>
+            <div>
+              <span class="help-overline">DELEGACIA DE DEFESA DA MULHER</span>
+              <h3>Delegacia de Defesa da Mulher</h3>
+              <p>Rua João Borges Sampaio, nº 750 — Vila Cláudia. Telefones: 3451-2589 / 3445-3001. Rede de Proteção à Mulher — Prefeitura de Limeira.</p>
+            </div>
+            <i data-lucide="external-link" class="help-external" style="width:16px;height:16px"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="grid-lines grid-lines-light" aria-hidden="true"></div>
+    <div class="mosaic-wave mosaic-deep footer-mosaic" id="footerMosaic"></div>
+    <div class="container footer-top">
+      <h2 class="footer-statement">Informação<br />também é uma<br />forma de proteção.</h2>
+    </div>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand footer-brand"><span class="brand-mark"><i data-lucide="sparkles" style="width:15px;height:15px"></i></span><span>Além das Marcas</span></div>
+        <p>Projeto educativo</p>
+      </div>
+      <div class="footer-links">
+        <button data-scroll="sobre">Sobre</button>
+        <button data-scroll="tipos">Tipos</button>
+        <button data-scroll="sinais">Sinais</button>
+        <button data-scroll="ajuda">Ajuda</button>
+      </div>
+      <div class="sources">
+        <strong>Fontes oficiais consultadas</strong>
+        <a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm" target="_blank" rel="noreferrer">Lei Maria da Penha — Planalto</a>
+        <a href="https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/susp-mulheres/violencia-domestica-e-familiar" target="_blank" rel="noreferrer">Ministério da Justiça e Segurança Pública</a>
+        <a href="https://www.gov.br/pt-br/servicos/denunciar-e-buscar-ajuda-a-vitimas-de-violencia-contra-mulheres" target="_blank" rel="noreferrer">Governo Federal — buscar ajuda</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>Projeto educativo de conscientização social.</span>
+      <span>O conteúdo não substitui orientação profissional, jurídica ou atendimento especializado.</span>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="Voltar ao topo"><i data-lucide="arrow-up" style="width:18px;height:18px"></i></button>
+</div>
+
+<script>
+/* ============================================================
+   CONTEÚDO (idêntico ao projeto React)
+   ============================================================ */
+const violenceTypes = [
+  { id: "fisica", title: "Violência Física", icon: "shield-check", short: "Ações que ofendem ou podem ofender a integridade e a saúde corporal.", examples: ["Espancamento", "Atirar objetos, sacudir ou apertar os braços", "Estrangulamento ou sufocamento", "Lesões com objetos cortantes ou perfurantes", "Ferimentos por queimaduras ou armas de fogo", "Tortura"] },
+  { id: "sexual", title: "Violência Sexual", icon: "heart-handshake", short: "Quando a mulher é obrigada, pressionada ou impedida de exercer livremente sua sexualidade e seus direitos reprodutivos.", examples: ["Estupro", "Obrigar a realizar atos sexuais indesejados", "Impedir o uso de métodos contraceptivos", "Forçar aborto ou gravidez", "Forçar matrimônio ou prostituição por coação, chantagem ou manipulação", "Limitar ou anular direitos sexuais e reprodutivos"] },
+  { id: "psicologica", title: "Violência Psicológica", icon: "message-circle", short: "Comportamentos que provocam sofrimento emocional, diminuem a autoestima ou controlam a liberdade.", examples: ["Ameaças e constrangimento", "Humilhação e insultos", "Manipulação e chantagem", "Isolamento de amigos e familiares", "Vigilância constante e perseguição", "Impedir estudar, trabalhar, viajar ou sair", "Ridicularização", "Gaslighting: distorcer fatos para fazê-la duvidar da própria percepção"] },
+  { id: "moral", title: "Violência Moral", icon: "ban", short: "Atitudes que atacam a honra, a reputação ou a dignidade da mulher.", examples: ["Acusar a mulher de traição", "Emitir julgamentos morais sobre sua conduta", "Fazer críticas ou acusações mentirosas", "Expor sua vida íntima", "Xingamentos relacionados à sua índole", "Desvalorizar a mulher por sua aparência ou modo de se vestir"] },
+  { id: "patrimonial", title: "Violência Patrimonial", icon: "wallet-cards", short: "Controle, destruição, retenção ou retirada de bens, documentos e recursos econômicos.", examples: ["Controlar o dinheiro", "Deixar de pagar pensão alimentícia", "Destruir documentos pessoais", "Furto, extorsão ou dano", "Estelionato", "Privar a mulher de bens, valores ou recursos econômicos", "Destruir objetos pessoais ou instrumentos de trabalho"] },
+  { id: "vicaria", title: "Violência Vicária", icon: "users", short: "Uso de filhos, familiares, dependentes ou pessoas da rede de apoio para atingir a mulher.", examples: ["Ameaçar machucar filhos para atingir a mulher", "Agressões contra filhos, familiares ou pessoas próximas", "Manipular filhos para rejeitarem a mãe", "Dificultar o convívio da mãe com os filhos como punição", "Usar filhos para transmitir ameaças ou chantagens", "Sequestrar, ocultar ou reter filhos", "Ameaçar ou ferir animais de estimação", "Ameaçar pessoas da rede de apoio", "Provocar sofrimento aos filhos para atingir emocionalmente a mãe", "Em casos extremos, matar filhos ou familiares para causar sofrimento permanente — vicaricídio"] }
+];
+
+const signs = [
+  "Ele controla com quem você pode conversar?",
+  "Ele exige acesso às suas mensagens e redes sociais?",
+  "Você tem medo da reação dele quando diz não?",
+  "Ele controla seu dinheiro?",
+  "Ele ameaça machucar seus filhos ou pessoas próximas?",
+  "Ele faz você acreditar que está ficando louca ou que está imaginando coisas?",
+  "Ele impede você de estudar, trabalhar, viajar ou encontrar pessoas próximas?"
+];
+
+const myths = [
+  ["Violência só existe quando há agressão física.", "MITO", "A violência pode ocorrer sem agressão física. Controle financeiro, ameaças e humilhações, por exemplo, podem integrar situações abusivas."],
+  ["Controlar o dinheiro da mulher pode ser uma forma de violência.", "VERDADE", "O controle financeiro é uma forma reconhecida de violência patrimonial, usada para limitar a autonomia e a liberdade da mulher."],
+  ["Humilhações e ameaças também podem ser violência.", "VERDADE", "Humilhações, ameaças e constrangimentos são formas de violência psicológica, mesmo sem deixar marcas visíveis."],
+  ["Ciúme é sempre uma prova de amor.", "MITO", "Ciúme, controle, humilhação e outras condutas podem ser sinais de abuso. Violência não é prova de amor."],
+  ["Impedir o contato com amigos e familiares pode ser uma forma de controle.", "VERDADE", "O isolamento da rede de apoio é uma estratégia comum de controle e pode caracterizar violência psicológica."]
+];
+
+const quotes = [
+  "Você não precisa esperar a violência ficar física para pedir ajuda.",
+  "Controle não é cuidado.",
+  "Ciúme não justifica violência.",
+  "Sua liberdade importa.",
+  "Você merece respeito."
+];
+
+const quoteStyles = ["solid", "outline", "gradient", "italic", "solid"];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function el(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+// Types
+const typesGrid = document.getElementById("typesGrid");
+violenceTypes.forEach((type, index) => {
+  const card = el(`
+    <article class="type-card reveal delay-${(index % 3) + 1}">
+      <span class="type-ghost-number" aria-hidden="true">0${index + 1}</span>
+      <div class="type-top">
+        <div class="icon-box"><i data-lucide="${type.icon}" style="width:20px;height:20px"></i></div>
+        <span class="type-number">0${index + 1}</span>
+      </div>
+      <h3>${type.title}</h3>
+      <p>${type.short}</p>
+      <button class="learn-more" aria-expanded="false">
+        <span class="learn-label">SAIBA MAIS</span>
+        <i data-lucide="chevron-down" class="chevron"></i>
+      </button>
+      <div class="examples">
+        <ul>${type.examples.map((e) => `<li>${e}</li>`).join("")}</ul>
+      </div>
+    </article>
+  `);
+  const btn = card.querySelector(".learn-more");
+  const examples = card.querySelector(".examples");
+  const label = card.querySelector(".learn-label");
+  const chevron = card.querySelector(".chevron");
+  btn.addEventListener("click", () => {
+    const isOpen = examples.classList.toggle("expanded");
+    card.classList.toggle("is-open", isOpen);
+    btn.setAttribute("aria-expanded", String(isOpen));
+    label.textContent = isOpen ? "OCULTAR EXEMPLOS" : "SAIBA MAIS";
+    chevron.setAttribute("data-lucide", isOpen ? "chevron-up" : "chevron-down");
+    lucide.createIcons();
+  });
+  typesGrid.appendChild(card);
+});
+
+// Signs
+const signsList = document.getElementById("signsList");
+const recognitionMessage = document.getElementById("recognitionMessage");
+const checkedSigns = new Set();
+signs.forEach((sign, index) => {
+  const item = el(`
+    <button class="sign-item" aria-pressed="false">
+      <span class="sign-number">0${index + 1}</span>
+      <span class="sign-text">${sign}</span>
+      <span class="sign-check"></span>
+    </button>
+  `);
+  item.addEventListener("click", () => {
+    const selected = item.classList.toggle("selected");
+    item.setAttribute("aria-pressed", String(selected));
+    const check = item.querySelector(".sign-check");
+    check.innerHTML = selected ? '<i data-lucide="check" style="width:13px;height:13px"></i>' : "";
+    if (selected) checkedSigns.add(index); else checkedSigns.delete(index);
+    recognitionMessage.classList.toggle("visible", checkedSigns.size > 0);
+    lucide.createIcons();
+  });
+  signsList.appendChild(item);
+});
+
+// Myths
+const mythsGrid = document.getElementById("mythsGrid");
+myths.forEach(([text, answer, explanation], index) => {
+  const card = el(`
+    <button class="myth-card" aria-expanded="false">
+      <span class="myth-ghost">0${index + 1}</span>
+      <span class="myth-label">AFIRMAÇÃO 0${index + 1}</span>
+      <p>${text}</p>
+      <span class="myth-reveal">REVELAR →</span>
+      <span class="answer-pill ${answer.toLowerCase()}">${answer}</span>
+      <span class="answer-explain">${explanation}</span>
+    </button>
+  `);
+  card.addEventListener("click", () => {
+    const open = card.classList.toggle("open");
+    card.setAttribute("aria-expanded", String(open));
+  });
+  mythsGrid.appendChild(card);
+});
+
+// Quotes
+const quotesGrid = document.getElementById("quotesGrid");
+quotes.forEach((quote, i) => {
+  const style = quoteStyles[i % quoteStyles.length];
+  const item = el(`
+    <div class="quote quote-${style}">
+      <span class="quote-num">0${i + 1}</span>
+      <strong>${quote}</strong>
+    </div>
+  `);
+  quotesGrid.appendChild(item);
+});
+
+/* ============================================================
+   MOSAIC WAVE
+   ============================================================ */
+function renderMosaic(container, tone) {
+  const COLS = 9, ROWS = 7;
+  const WAVE = [7, 5, 6, 4, 3, 5, 2, 4, 3];
+  container.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+  let html = "";
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
+      const filled = WAVE[col % WAVE.length];
+      const fromBottom = ROWS - row;
+      const active = fromBottom <= filled;
+      const t = active ? fromBottom / filled : 0;
+      const variance = ((row + col) % 3) * 0.05;
+      const opacity = active ? Math.min(0.9, 0.22 + t * 0.55 + variance) : 0;
+      html += `<span class="mosaic-tile" style="opacity:${opacity}"></span>`;
+    }
+  }
+  container.innerHTML = html;
+}
+renderMosaic(document.getElementById("heroMosaic"), "light");
+renderMosaic(document.getElementById("footerMosaic"), "deep");
+
+/* ============================================================
+   NAV / SCROLL / MENU
+   ============================================================ */
+const menuButton = document.getElementById("menuButton");
+const menuIcon = document.getElementById("menuIcon");
+const navLinks = document.getElementById("main-menu");
+let menuOpen = false;
+menuButton.addEventListener("click", () => {
+  menuOpen = !menuOpen;
+  navLinks.classList.toggle("open", menuOpen);
+  menuButton.setAttribute("aria-expanded", String(menuOpen));
+  menuIcon.setAttribute("data-lucide", menuOpen ? "x" : "menu");
+  lucide.createIcons();
+});
+
+document.querySelectorAll("[data-scroll]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = btn.getAttribute("data-scroll");
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    menuOpen = false;
+    navLinks.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuIcon.setAttribute("data-lucide", "menu");
+    lucide.createIcons();
+  });
+});
+
+const toTop = document.getElementById("toTop");
+window.addEventListener("scroll", () => {
+  toTop.classList.toggle("visible", window.scrollY > 500);
+}, { passive: true });
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+/* ============================================================
+   ICONS
+   ============================================================ */
+lucide.createIcons();
+</script>
+</body>
+</html>
